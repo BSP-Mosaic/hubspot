@@ -1,4 +1,4 @@
-module github.com/belong-inc/go-hubspot
+module github.com/teltech/go-hubspot
 
 go 1.14
 
