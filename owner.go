@@ -9,7 +9,7 @@ const (
 // Reference: https://developers.hubspot.com/docs/api/crm/owners
 type OwnerService interface {
 	Get(ownerID string, owner interface{}, option *RequestQueryOption) (ResponseResourceNonObject, error)
-	GetAll(owner interface{}, option *RequestQueryOption) (*ResponseResourceMulti, error)
+	GetAll(owner interface{}, option *RequestQueryOption) (*ResponseResourceAll, error)
 }
 
 // OwnerServiceOp handles communication with the product related methods of the HubSpot API.
