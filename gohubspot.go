@@ -51,7 +51,19 @@ type ResponseResource struct {
 	CreatedAt    *HsTime       `json:"createdAt,omitempty"`
 	UpdatedAt    *HsTime       `json:"updatedAt,omitempty"`
 	ArchivedAt   *HsTime       `json:"archivedAt,omitempty"`
+	Results      []interface{} `json:"results,omitempty"`
 }
+
+type ResponseResourceMulti struct {
+	Results []ResponseResource `json:"results,omitempty"`
+}
+
+// check if needed for get all in owners
+type ResponseResourceAll struct {
+	Results []interface{} `json:"results,omitempty"`
+}
+
+type ResponseResourceNonObject interface{}
 
 // NewClient returns a new HubSpot API client with APIKey or OAuthConfig.
 // HubSpot officially recommends authentication with OAuth.
