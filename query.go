@@ -24,3 +24,21 @@ func (o *RequestQueryOption) setupProperties(defaultFields []string) *RequestQue
 	opts.Properties = append(defaultFields, opts.CustomProperties...)
 	return &opts
 }
+
+const (
+	FilterOperatorEqual = "EQ"
+)
+
+type RequestSearchOption struct {
+	FilterGroups []FilterGroup `json:"filterGroups,omitempty"`
+}
+
+type FilterGroup struct {
+	Filters []Filter `json:"filters,omitempty"`
+}
+
+type Filter struct {
+	Value        string `json:"value,omitempty"`
+	PropertyName string `json:"propertyName,omitempty"`
+	Operator     string `json:"operator,omitempty"`
+}
