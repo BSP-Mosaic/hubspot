@@ -12,6 +12,7 @@ type DealService interface {
 	Get(dealID string, deal interface{}, option *RequestQueryOption) (*ResponseResource, error)
 	Create(deal interface{}) (*ResponseResource, error)
 	Update(dealID string, deal interface{}) (*ResponseResource, error)
+	Delete(dealID string) error
 	AssociateAnotherObj(dealID string, conf *AssociationConfig) (*ResponseResource, error)
 }
 
@@ -136,4 +137,12 @@ func (s *DealServiceOp) AssociateAnotherObj(dealID string, conf *AssociationConf
 		return nil, err
 	}
 	return resource, nil
+}
+
+// Delete deletes a deal.
+func (s *DealServiceOp) Delete(dealID string) error {
+	if err := s.client.Delete(s.dealPath + "/" + dealID); err != nil {
+		return err
+	}
+	return nil
 }
