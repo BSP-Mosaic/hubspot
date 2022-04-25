@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/belong-inc/go-hubspot"
 	"github.com/google/go-cmp/cmp"
+	"github.com/teltech/go-hubspot"
 )
 
 func TestOwnerServiceOp_Get(t *testing.T) {

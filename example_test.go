@@ -3,8 +3,14 @@ package hubspot_test
 import (
 	"fmt"
 	"log"
+	"reflect"
+	"testing"
 
-	"github.com/belong-inc/go-hubspot"
+	"github.com/teltech/go-hubspot"
+)
+
+const (
+	hubspotTestAccountApiKey = "eu1-f11a-f6c3-4999-abc2-493eb957f6cd"
 )
 
 type ExampleContact struct {
@@ -371,4 +377,179 @@ func ExampleDealServiceOp_AssociateAnotherObj() {
 	fmt.Println(res)
 
 	// // Output:
+}
+
+func TestExampleOwnerServiceOp_Get(t *testing.T) {
+
+	t.Run("Test 1", func(t *testing.T) {
+		cli, _ := hubspot.NewClient(hubspot.SetAPIKey(hubspotTestAccountApiKey))
+
+		fmt.Println("Before Get")
+
+		res, err := cli.CRM.Owner.Get("297111267", &hubspot.Owner{}, nil)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Printf("Res after Get: %+v\n", reflect.TypeOf(res))
+
+		switch res.(type) {
+		case *hubspot.Owner:
+			fmt.Printf("Matching type 1 found!\n")
+		case hubspot.Owner:
+			fmt.Printf("Matching type 2 found!\n")
+		}
+
+		r, ok := res.(*hubspot.Owner)
+		if !ok {
+			log.Fatal("unable to type assertion")
+		}
+
+		// use properties
+		//_ = r
+
+		fmt.Println(r)
+
+		// // Output:
+
+		t.Errorf("Response mismatch: %+v", r)
+	})
+}
+
+func TestExampleOwnerServiceOp_GetAll(t *testing.T) {
+
+	t.Run("Test 2", func(t *testing.T) {
+		cli, _ := hubspot.NewClient(hubspot.SetAPIKey(hubspotTestAccountApiKey))
+
+		fmt.Println("Before Get")
+
+		res, err := cli.CRM.Owner.GetAll(&hubspot.Owner{}, nil)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Printf("Res after Get: %+v\n", res)
+
+		for _, results := range res.Results {
+			r, ok := results.(*hubspot.Owner)
+			if !ok {
+				log.Fatal("unable to type assertion")
+			}
+
+			// use properties
+			_ = r
+
+			fmt.Println(r)
+
+			// // Output:
+
+			t.Errorf("Response mismatch: %+v", r)
+
+		}
+	})
+}
+
+func TestExampleOPipelineServiceOp_Get(t *testing.T) {
+
+	t.Run("Test 1", func(t *testing.T) {
+		cli, _ := hubspot.NewClient(hubspot.SetAPIKey(hubspotTestAccountApiKey))
+
+		fmt.Println("Before Get")
+
+		res, err := cli.CRM.Pipeline.Get("17542634", &hubspot.Pipeline{}, nil)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Printf("Res after Get: %+v\n", reflect.TypeOf(res))
+
+		switch res.(type) {
+		case *hubspot.Pipeline:
+			fmt.Printf("Matching type 1 found!\n")
+		}
+
+		r, ok := res.(*hubspot.Pipeline)
+		if !ok {
+			log.Fatal("unable to type assertion")
+		}
+
+		// use properties
+		//_ = r
+
+		fmt.Println(r)
+
+		for i, stage := range *r.Stages {
+			fmt.Printf("Stage %d: %+v\n", i, stage)
+		}
+
+		// // Output:
+
+		t.Errorf("Response mismatch: %+v", r)
+	})
+}
+
+func TestExamplePipelineServiceOp_GetAll(t *testing.T) {
+
+	t.Run("Test 2", func(t *testing.T) {
+		cli, _ := hubspot.NewClient(hubspot.SetAPIKey(hubspotTestAccountApiKey))
+
+		fmt.Println("Before Get")
+
+		res, err := cli.CRM.Owner.GetAll(&hubspot.Pipeline{}, nil)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Printf("Res after Get: %+v\n", res)
+
+		for i, results := range res.Results {
+			r, ok := results.(*hubspot.Pipeline)
+			if !ok {
+				log.Fatal("unable to type assertion")
+			}
+
+			// use properties
+			_ = r
+
+			fmt.Printf("Result pipeline %d: %+v\n", i, r)
+
+			// // Output:
+
+			t.Errorf("Response mismatch: %+v", r)
+
+		}
+	})
+}
+
+func TestExampleCustomerServiceOp_Search(t *testing.T) {
+
+	t.Run("Test 3", func(t *testing.T) {
+		cli, _ := hubspot.NewClient(hubspot.SetAPIKey(hubspotTestAccountApiKey))
+
+		fmt.Println("Before Search")
+
+		filters := []hubspot.Filter{}
+		filters = append(filters, hubspot.Filter{Value: "Company", PropertyName: "name", Operator: "EQ"})
+
+		filterGroups := []hubspot.FilterGroup{}
+		filterGroups = append(filterGroups, hubspot.FilterGroup{Filters: filters})
+
+		res, err := cli.CRM.Company.Search(&hubspot.Company{}, &hubspot.RequestSearchOption{FilterGroups: filterGroups})
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Printf("Res after Post: %+v\n", res)
+
+		for i, result := range res.Results {
+
+			fmt.Printf("Result pipeline %d: %+v\n", i, result)
+
+			// // Output:
+
+		}
+
+		t.Errorf("Response mismatch: %+v", res)
+
+	})
 }
