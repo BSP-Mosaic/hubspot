@@ -18,6 +18,7 @@ type ObjectType string
 
 // Default Object types
 const (
+	ObjectTypeCompany ObjectType = "companies"
 	ObjectTypeContact ObjectType = "contacts"
 	ObjectTypeDeal    ObjectType = "deals"
 )
