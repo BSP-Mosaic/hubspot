@@ -13,6 +13,7 @@ type ContactService interface {
 	Create(contact interface{}) (*ResponseResource, error)
 	Update(contactID string, contact interface{}) (*ResponseResource, error)
 	Delete(contactID string) error
+	Search(contact interface{}, option *RequestSearchOption) (*ResponseResourceMulti, error)
 	AssociateAnotherObj(contactID string, conf *AssociationConfig) (*ResponseResource, error)
 }
 
@@ -323,7 +324,14 @@ var defaultContactFields = []string{
 // e.g. &hubspot.RequestQueryOption{ Properties: []string{"custom_a", "custom_b"}}
 func (s *ContactServiceOp) Get(contactID string, contact interface{}, option *RequestQueryOption) (*ResponseResource, error) {
 	resource := &ResponseResource{Properties: contact}
-	if err := s.client.Get(s.contactPath+"/"+contactID, resource, option.setupProperties(defaultContactFields)); err != nil {
+	path := s.contactPath + "/" + contactID
+	if len(option.Associations) != 0 {
+		path += "/associations/" + option.Associations[0]
+		result := []interface{}{}
+		result = append(result, &AssociationResult{})
+		resource = &ResponseResource{Results: result}
+	}
+	if err := s.client.Get(path, resource, option.setupProperties(defaultContactFields)); err != nil {
 		return nil, err
 	}
 	return resource, nil
@@ -369,4 +377,19 @@ func (s *ContactServiceOp) Delete(contactID string) error {
 		return err
 	}
 	return nil
+}
+
+// Search finds a contact.
+// In order to bind the get content, a structure must be specified as an argument.
+// Also, if you want to gets a custom field, you need to specify the field name.
+// If you specify a non-existent field, it will be ignored.
+// e.g. &hubspot.RequestQueryOption{ Properties: []string{"custom_a", "custom_b"}}
+func (s *ContactServiceOp) Search(contact interface{}, option *RequestSearchOption) (*ResponseResourceMulti, error) {
+	resources := []ResponseResource{}
+	resources = append(resources, ResponseResource{Properties: contact})
+	resource := &ResponseResourceMulti{Results: resources}
+	if err := s.client.Post(s.contactPath+"/search", option, resource); err != nil {
+		return nil, err
+	}
+	return resource, nil
 }
