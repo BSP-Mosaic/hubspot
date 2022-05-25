@@ -155,6 +155,7 @@ type Contact struct {
 	NumNotes                                    *HsStr  `json:"num_notes,omitempty"`
 	NumUniqueConversionEvents                   *HsStr  `json:"num_unique_conversion_events,omitempty"`
 	NumEmployees                                *HsStr  `json:"numemployees,omitempty"`
+	PhoneNumber                                 *HsStr  `json:"phone,omitempty"`
 	RecentConversionDate                        *HsTime `json:"recent_conversion_date,omitempty"`
 	RecentConversionEventName                   *HsStr  `json:"recent_conversion_event_name,omitempty"`
 	RecentDealAmount                            *HsStr  `json:"recent_deal_amount,omitempty"`
@@ -169,6 +170,10 @@ type Contact struct {
 	Website                                     *HsStr  `json:"website,omitempty"`
 	WorkEmail                                   *HsStr  `json:"work_email,omitempty"`
 	Zip                                         *HsStr  `json:"zip,omitempty"`
+
+	// custom defined properties
+	DiscoveryChannel *HsStr `json:"discovery_channel,omitempty"`
+	FreeTrial        HsBool `json:"free_trial,omitempty"`
 }
 
 var defaultContactFields = []string{
@@ -301,6 +306,7 @@ var defaultContactFields = []string{
 	"num_notes",
 	"num_unique_conversion_events",
 	"numemployees",
+	"phone",
 	"recent_conversion_date",
 	"recent_conversion_event_name",
 	"recent_deal_amount",
