@@ -172,8 +172,10 @@ type Contact struct {
 	Zip                                         *HsStr  `json:"zip,omitempty"`
 
 	// custom defined properties
-	DiscoveryChannel *HsStr `json:"discovery_channel,omitempty"`
-	FreeTrial        HsBool `json:"free_trial,omitempty"`
+	DiscoveryChannel     *HsStr `json:"discovery_channel,omitempty"`
+	FreeTrial            HsBool `json:"free_trial,omitempty"`
+	FreeTrialTouchedDate *HsStr `json:"free_trial_touched_date,omitempty"`
+	FreeTrialExpiredDate *HsStr `json:"free_trial_expired_date,omitempty"`
 }
 
 var defaultContactFields = []string{
@@ -321,6 +323,10 @@ var defaultContactFields = []string{
 	"website",
 	"work_email",
 	"zip",
+	"discovery_channel",
+	"free_trial",
+	"free_trial_touched_date",
+	"free_trial_expired_date",
 }
 
 // Get gets a contact.
