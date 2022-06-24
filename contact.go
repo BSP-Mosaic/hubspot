@@ -176,6 +176,7 @@ type Contact struct {
 	FreeTrial            HsBool `json:"free_trial,omitempty"`
 	FreeTrialTouchedDate *HsStr `json:"free_trial_touched_date,omitempty"`
 	FreeTrialExpiredDate *HsStr `json:"free_trial_expired_date,omitempty"`
+	LeadSource           *HsStr `json:"lead_source,omitempty"`
 }
 
 var defaultContactFields = []string{
@@ -327,6 +328,7 @@ var defaultContactFields = []string{
 	"free_trial",
 	"free_trial_touched_date",
 	"free_trial_expired_date",
+	"lead_source",
 }
 
 // Get gets a contact.
