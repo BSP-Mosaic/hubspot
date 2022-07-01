@@ -177,6 +177,9 @@ type Contact struct {
 	FreeTrialTouchedDate *HsStr `json:"free_trial_touched_date,omitempty"`
 	FreeTrialExpiredDate *HsStr `json:"free_trial_expired_date,omitempty"`
 	LeadSource           *HsStr `json:"lead_source,omitempty"`
+	UtmCampaign          *HsStr `json:"utm_campaign,omitempty"`
+	UtmMedia             *HsStr `json:"utm_media,omitempty"`
+	UtmSource            *HsStr `json:"utm_source,omitempty"`
 }
 
 var defaultContactFields = []string{
@@ -329,6 +332,9 @@ var defaultContactFields = []string{
 	"free_trial_touched_date",
 	"free_trial_expired_date",
 	"lead_source",
+	"utm_campaign",
+	"utm_media",
+	"utm_source",
 }
 
 // Get gets a contact.
