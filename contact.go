@@ -178,7 +178,7 @@ type Contact struct {
 	FreeTrialExpiredDate *HsStr `json:"free_trial_expired_date,omitempty"`
 	LeadSource           *HsStr `json:"lead_source,omitempty"`
 	UtmCampaign          *HsStr `json:"utm_campaign,omitempty"`
-	UtmMedia             *HsStr `json:"utm_media,omitempty"`
+	UtmMedium            *HsStr `json:"utm_medium,omitempty"`
 	UtmSource            *HsStr `json:"utm_source,omitempty"`
 }
 
@@ -333,7 +333,7 @@ var defaultContactFields = []string{
 	"free_trial_expired_date",
 	"lead_source",
 	"utm_campaign",
-	"utm_media",
+	"utm_medium",
 	"utm_source",
 }
 
