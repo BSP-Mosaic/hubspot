@@ -174,6 +174,7 @@ type Contact struct {
 	// custom defined properties
 	DiscoveryChannel     *HsStr `json:"discovery_channel,omitempty"`
 	FreeTrial            HsBool `json:"free_trial,omitempty"`
+	FreeTrialStatus      *HsStr `json:"free_trial_status,omitempty"`
 	FreeTrialTouchedDate *HsStr `json:"free_trial_touched_date,omitempty"`
 	FreeTrialExpiredDate *HsStr `json:"free_trial_expired_date,omitempty"`
 	LeadSource           *HsStr `json:"lead_source,omitempty"`
@@ -329,6 +330,7 @@ var defaultContactFields = []string{
 	"zip",
 	"discovery_channel",
 	"free_trial",
+	"free_trial_status",
 	"free_trial_touched_date",
 	"free_trial_expired_date",
 	"lead_source",
