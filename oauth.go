@@ -142,7 +142,7 @@ func (ot *OAuthToken) setExpiry() {
 }
 
 func (ot *OAuthToken) valid() bool {
-	return ot != nil && ot.AccessToken != "" && ot.RefreshToken != "" && ot.expired()
+	return ot != nil && ot.AccessToken != "" && ot.RefreshToken != "" && !ot.expired() // allowing auth tokens without expiry
 }
 
 func (ot *OAuthToken) expired() bool {

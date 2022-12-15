@@ -25,8 +25,16 @@ func SetOAuth(config *OAuthConfig) AuthMethod {
 
 func SetAPIKey(key string) AuthMethod {
 	return func(c *Client) {
+		/* API Key no longer supported, replace with pre-generated OAuth key for dev account
 		c.authenticator = &APIKey{
 			apikey: key,
+		} */
+		c.authenticator = &OAuth{
+			retriever: &OAuthTokenManager{
+				oauthPath:  fmt.Sprintf("%s/%s", c.baseURL.String(), oauthTokenPath),
+				HTTPClient: c.HTTPClient,
+				Token:      &OAuthToken{AccessToken: key, RefreshToken: "dummy"},
+			},
 		}
 	}
 }
