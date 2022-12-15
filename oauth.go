@@ -142,12 +142,12 @@ func (ot *OAuthToken) setExpiry() {
 }
 
 func (ot *OAuthToken) valid() bool {
-	return ot != nil && ot.AccessToken != "" && ot.RefreshToken != "" && !ot.expired() // allowing auth tokens without expiry
+	return ot != nil && ot.AccessToken != "" && /*ot.RefreshToken != "" &&*/ !ot.expired()
 }
 
 func (ot *OAuthToken) expired() bool {
 	if ot.Expiry.IsZero() {
 		return false
 	}
-	return ot.Expiry.After(timeNow())
+	return ot.Expiry.Before(timeNow())
 }

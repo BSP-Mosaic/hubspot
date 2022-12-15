@@ -33,7 +33,7 @@ func SetAPIKey(key string) AuthMethod {
 			retriever: &OAuthTokenManager{
 				oauthPath:  fmt.Sprintf("%s/%s", c.baseURL.String(), oauthTokenPath),
 				HTTPClient: c.HTTPClient,
-				Token:      &OAuthToken{AccessToken: key, RefreshToken: "dummy"},
+				Token:      &OAuthToken{AccessToken: key},
 			},
 		}
 	}
