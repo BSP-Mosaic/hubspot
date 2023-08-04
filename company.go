@@ -1,21 +1,22 @@
 package hubspot
 
 import (
-	"fmt"
+	"strings"
 )
 
 const (
 	companyBasePath = "companies"
 )
 
-// Owner is an interface of owner endpoints of the HubSpot API.
-// HubSpot uses owners to assign specific users to contacts, companies, deals, tickets, or engagements.
-// Reference: https://developers.hubspot.com/docs/api/crm/owners
+// Company is an interface of company endpoints of the HubSpot API.
+// HubSpot companies store information about company entities.
+// Reference: https://developers.hubspot.com/docs/api/crm/companies
 type CompanyService interface {
 	Get(companyID string, owner interface{}, option *RequestQueryOption) (*ResponseResource, error)
 	GetAll(company interface{}, option *RequestQueryOption) (*ResponseResourceMulti, error)
 	Search(company interface{}, option *RequestSearchOption) (*ResponseResourceMulti, error)
 	Create(company interface{}) (*ResponseResource, error)
+	Update(companyID string, company interface{}) (*ResponseResource, error)
 	Delete(companyID string) error
 }
 
@@ -38,6 +39,11 @@ type Company struct {
 	HsObjectID               *HsStr  `json:"hs_object_id,omitempty"`
 	HubspotOwnerAssignedDate *HsTime `json:"hubspot_owner_assigneddate,omitempty"`
 	HubspotOwnerID           *HsStr  `json:"hubspot_owner_id,omitempty"`
+
+	// custom defined properties
+	ProductNames *HsStr `json:"products,omitempty"`
+	TrialStatus  *HsStr `json:"trial_status,omitempty"`
+	TrialEndDate *HsStr `json:"trial_end_date,omitempty"`
 }
 
 var defaultCompanyFields = []string{
@@ -53,6 +59,11 @@ var defaultCompanyFields = []string{
 	"hs_object_id",
 	"hubspot_owner_assigneddate",
 	"hubspot_owner_id",
+
+	// custom defined properties
+	"products",
+	"trial_status",
+	"trial_end_date",
 }
 
 // Get gets a company.
@@ -65,12 +76,8 @@ func (s *CompanyServiceOp) Get(companyID string, company interface{}, option *Re
 	path := s.companyPath + "/" + companyID
 	if len(option.Associations) != 0 {
 		path += "/associations/" + option.Associations[0]
-		result := []interface{}{}
-		result = append(result, &AssociationResult{})
-		resource = &ResponseResource{Results: result}
+		resource = &ResponseResource{}
 	}
-	fmt.Printf("Result path %s\n", path)
-	//if err := s.client.Get(path, company, option.setupProperties(defaultCompanyFields)); err != nil {
 	if err := s.client.Get(path, resource, option.setupProperties(defaultCompanyFields)); err != nil {
 		return nil, err
 	}
@@ -84,6 +91,18 @@ func (s *CompanyServiceOp) Create(company interface{}) (*ResponseResource, error
 	req := &RequestPayload{Properties: company}
 	resource := &ResponseResource{Properties: company}
 	if err := s.client.Post(s.companyPath, req, resource); err != nil {
+		return nil, err
+	}
+	return resource, nil
+}
+
+// Update updates a company.
+// In order to bind the updated content, a structure must be specified as an argument.
+// When using custom fields, please embed hubspot.Company in your own structure.
+func (s *CompanyServiceOp) Update(companyID string, company interface{}) (*ResponseResource, error) {
+	req := &RequestPayload{Properties: company}
+	resource := &ResponseResource{Properties: company}
+	if err := s.client.Patch(s.companyPath+"/"+companyID, req, resource); err != nil {
 		return nil, err
 	}
 	return resource, nil
@@ -132,4 +151,30 @@ func (s *CompanyServiceOp) Delete(companyID string) error {
 		return err
 	}
 	return nil
+}
+
+func (c *Company) AddProductName(name string) {
+	tmpProductNames := []string{}
+	if c.ProductNames != nil && c.ProductNames.String() != "" {
+		tmpProductNames = strings.Split(c.ProductNames.String(), ";")
+	}
+	tmpProductNames = append(tmpProductNames, name)
+	c.ProductNames = NewString(strings.Join(tmpProductNames, ";"))
+}
+
+func (c *Company) RemoveProductName(name string) {
+	if c.ProductNames == nil {
+		return
+	}
+	tmpProductNames := strings.Split(c.ProductNames.String(), ";")
+	for i, v := range tmpProductNames {
+		if v == name {
+			tmpProductNames = append(tmpProductNames[:i], tmpProductNames[i+1:]...)
+		}
+	}
+	if len(tmpProductNames) == 0 {
+		c.ProductNames = nil
+		return
+	}
+	c.ProductNames = NewString(strings.Join(tmpProductNames, ";"))
 }

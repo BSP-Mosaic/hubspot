@@ -57,6 +57,12 @@ type Deal struct {
 	LastModifiedDate  *HsTime `json:"hs_lastmodifieddate,omitempty"`
 	NextActivityDate  *HsTime `json:"notes_next_activity_date,omitempty"`
 	OwnerAssignedDate *HsTime `json:"hubspot_owner_assigneddate,omitempty"`
+
+	// custom defined properties
+	ProductName  *HsStr `json:"product_name,omitempty"`
+	PackageName  *HsStr `json:"package_name,omitempty"`
+	TrialEndDate *HsStr `json:"trial_end_date,omitempty"`
+	Usage        *HsStr `json:"usage,omitempty"`
 }
 
 var defaultDealFields = []string{
@@ -90,6 +96,12 @@ var defaultDealFields = []string{
 	"notes_last_contacted",
 	"hs_lastmodifieddate",
 	"notes_next_activity_date",
+
+	// custom defined properties
+	"product_name",
+	"package_name",
+	"trial_end_date",
+	"usage",
 }
 
 // Get gets a deal.

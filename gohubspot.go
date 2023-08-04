@@ -44,14 +44,14 @@ type RequestPayload struct {
 
 // ResponseResource is common response structure for HubSpot APIs.
 type ResponseResource struct {
-	ID           string        `json:"id,omitempty"`
-	Archived     bool          `json:"archived,omitempty"`
-	Associations *Associations `json:"associations,omitempty"`
-	Properties   interface{}   `json:"properties,omitempty"`
-	CreatedAt    *HsTime       `json:"createdAt,omitempty"`
-	UpdatedAt    *HsTime       `json:"updatedAt,omitempty"`
-	ArchivedAt   *HsTime       `json:"archivedAt,omitempty"`
-	Results      []interface{} `json:"results,omitempty"`
+	ID                 string              `json:"id,omitempty"`
+	Archived           bool                `json:"archived,omitempty"`
+	Associations       *Associations       `json:"associations,omitempty"`
+	Properties         interface{}         `json:"properties,omitempty"`
+	CreatedAt          *HsTime             `json:"createdAt,omitempty"`
+	UpdatedAt          *HsTime             `json:"updatedAt,omitempty"`
+	ArchivedAt         *HsTime             `json:"archivedAt,omitempty"`
+	AssociationResults []AssociationResult `json:"results,omitempty"`
 }
 
 type ResponseResourceMulti struct {

@@ -172,15 +172,15 @@ type Contact struct {
 	Zip                                         *HsStr  `json:"zip,omitempty"`
 
 	// custom defined properties
-	DiscoveryChannel     *HsStr `json:"discovery_channel,omitempty"`
-	FreeTrial            HsBool `json:"free_trial,omitempty"`
-	FreeTrialStatus      *HsStr `json:"free_trial_status,omitempty"`
-	FreeTrialTouchedDate *HsStr `json:"free_trial_touched_date,omitempty"`
-	FreeTrialExpiredDate *HsStr `json:"free_trial_expired_date,omitempty"`
-	LeadSource           *HsStr `json:"lead_source,omitempty"`
-	UtmCampaign          *HsStr `json:"utm_campaign,omitempty"`
-	UtmMedium            *HsStr `json:"utm_medium,omitempty"`
-	UtmSource            *HsStr `json:"utm_source,omitempty"`
+	FreeTrial                   HsBool `json:"free_trial,omitempty"`
+	DiscoveryChannel            *HsStr `json:"discovery_channel,omitempty"`
+	LeadSource                  *HsStr `json:"lead_source,omitempty"`
+	UtmCampaign                 *HsStr `json:"utm_campaign,omitempty"`
+	UtmMedium                   *HsStr `json:"utm_medium,omitempty"`
+	UtmOriginalSource           *HsStr `json:"utm_original_source,omitempty"`
+	UtmOriginalSourceDrilldown1 *HsStr `json:"utm_original_source_dd_1,omitempty"`
+	UtmOriginalSourceDrilldown2 *HsStr `json:"utm_original_source_dd_2,omitempty"`
+	UtmOriginalSourceDrilldown3 *HsStr `json:"utm_original_source_dd_3,omitempty"`
 }
 
 var defaultContactFields = []string{
@@ -328,15 +328,18 @@ var defaultContactFields = []string{
 	"website",
 	"work_email",
 	"zip",
+
+	// custom defined properties
 	"discovery_channel",
 	"free_trial",
-	"free_trial_status",
-	"free_trial_touched_date",
-	"free_trial_expired_date",
 	"lead_source",
 	"utm_campaign",
 	"utm_medium",
 	"utm_source",
+	"utm_original_source",
+	"utm_original_source_dd_1",
+	"utm_original_source_dd_2",
+	"utm_original_source_dd_3",
 }
 
 // Get gets a contact.
@@ -349,9 +352,7 @@ func (s *ContactServiceOp) Get(contactID string, contact interface{}, option *Re
 	path := s.contactPath + "/" + contactID
 	if len(option.Associations) != 0 {
 		path += "/associations/" + option.Associations[0]
-		result := []interface{}{}
-		result = append(result, &AssociationResult{})
-		resource = &ResponseResource{Results: result}
+		resource = &ResponseResource{}
 	}
 	if err := s.client.Get(path, resource, option.setupProperties(defaultContactFields)); err != nil {
 		return nil, err

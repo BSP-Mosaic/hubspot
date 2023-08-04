@@ -55,6 +55,9 @@ func (c *AssociationConfig) makeAssociationPath() string {
 }
 
 type Associations struct {
+	Companies struct {
+		Results []AssociationResult `json:"results"`
+	} `json:"companies"`
 	Contacts struct {
 		Results []AssociationResult `json:"results"`
 	} `json:"contacts"`
