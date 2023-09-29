@@ -175,12 +175,12 @@ type Contact struct {
 	ApiFreeTrial                HsBool `json:"api_free_trial,omitempty"`
 	DiscoveryChannel            *HsStr `json:"discovery_channel,omitempty"`
 	LeadSource                  *HsStr `json:"lead_source,omitempty"`
-	UtmCampaign                 *HsStr `json:"utm_campaign,omitempty"`
-	UtmMedium                   *HsStr `json:"utm_medium,omitempty"`
 	UtmOriginalSource           *HsStr `json:"utm_original_source,omitempty"`
-	UtmOriginalSourceDrilldown1 *HsStr `json:"utm_original_source_dd_1,omitempty"`
-	UtmOriginalSourceDrilldown2 *HsStr `json:"utm_original_source_dd_2,omitempty"`
-	UtmOriginalSourceDrilldown3 *HsStr `json:"utm_original_source_dd_3,omitempty"`
+	UtmOriginalSourceDrilldown1 *HsStr `json:"utm_original_source_drilldown_1,omitempty"`
+	UtmOriginalSourceDrilldown2 *HsStr `json:"utm_original_source_drilldown_2,omitempty"`
+	UtmOriginalSourceDrilldown3 *HsStr `json:"utm_original_source_drilldown_3,omitempty"`
+	//UtmCampaign                 *HsStr `json:"utm_campaign,omitempty"`
+	//UtmMedium                   *HsStr `json:"utm_medium,omitempty"`
 }
 
 var defaultContactFields = []string{
@@ -333,13 +333,13 @@ var defaultContactFields = []string{
 	"discovery_channel",
 	"api_free_trial",
 	"lead_source",
-	"utm_campaign",
-	"utm_medium",
-	"utm_source",
+	//"utm_campaign",
+	//"utm_medium",
+	//"utm_source",
 	"utm_original_source",
-	"utm_original_source_dd_1",
-	"utm_original_source_dd_2",
-	"utm_original_source_dd_3",
+	"utm_original_source_drilldown_1",
+	"utm_original_source_drilldown_2",
+	"utm_original_source_drilldown_3",
 }
 
 // Get gets a contact.
