@@ -59,6 +59,7 @@ type Deal struct {
 	OwnerAssignedDate *HsTime `json:"hubspot_owner_assigneddate,omitempty"`
 
 	// custom defined properties
+	NoOfLicenses *HsStr `json:"of_licenses,omitempty"`
 	ProductName  *HsStr `json:"product_name,omitempty"`
 	PackageName  *HsStr `json:"package_name,omitempty"`
 	TrialEndDate *HsStr `json:"trial_end_date,omitempty"`
@@ -98,6 +99,7 @@ var defaultDealFields = []string{
 	"notes_next_activity_date",
 
 	// custom defined properties
+	"of_licenses",
 	"product_name",
 	"package_name",
 	"trial_end_date",
