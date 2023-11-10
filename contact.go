@@ -179,8 +179,10 @@ type Contact struct {
 	UtmOriginalSourceDrilldown1 *HsStr `json:"utm_original_source_drilldown_1,omitempty"`
 	UtmOriginalSourceDrilldown2 *HsStr `json:"utm_original_source_drilldown_2,omitempty"`
 	UtmOriginalSourceDrilldown3 *HsStr `json:"utm_original_source_drilldown_3,omitempty"`
+	UserType                    *HsStr `json:"user_type,omitempty"`
 	//UtmCampaign                 *HsStr `json:"utm_campaign,omitempty"`
 	//UtmMedium                   *HsStr `json:"utm_medium,omitempty"`
+	//UtmSource                   *HsStr `json:"utm_source,omitempty"`
 }
 
 var defaultContactFields = []string{
@@ -340,6 +342,7 @@ var defaultContactFields = []string{
 	"utm_original_source_drilldown_1",
 	"utm_original_source_drilldown_2",
 	"utm_original_source_drilldown_3",
+	"user_type",
 }
 
 // Get gets a contact.
