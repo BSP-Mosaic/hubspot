@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/teltech/go-hubspot"
+	"github.com/BSP-Mosaic/go-hubspot"
 )
 
 func TestHsStr_String(t *testing.T) {

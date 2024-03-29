@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/teltech/go-hubspot"
+	"github.com/BSP-Mosaic/go-hubspot"
 )
 
 const (

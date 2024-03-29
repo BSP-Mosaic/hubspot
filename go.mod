@@ -1,4 +1,4 @@
-module github.com/teltech/go-hubspot
+module github.com/BSP-Mosaic/go-hubspot
 
 go 1.16
 
