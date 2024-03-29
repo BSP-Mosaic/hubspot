@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/BSP-Mosaic/go-hubspot"
+	"github.com/BSP-Mosaic/teltech-go-hubspot"
 )
 
 func TestOwnerServiceOp_Get(t *testing.T) {
