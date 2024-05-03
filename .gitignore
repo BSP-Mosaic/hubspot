@@ -9,3 +9,6 @@
 
 # Go
 vendor
+
+# Artifactory
+.jfrog/
