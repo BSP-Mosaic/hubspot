@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/BSP-Mosaic/teltech-go-hubspot"
+	"bendingspoons.com/hubspot"
 )
 
 func TestWithAPIVersion(t *testing.T) {

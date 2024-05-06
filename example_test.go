@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/BSP-Mosaic/teltech-go-hubspot"
+	"bendingspoons.com/hubspot"
 )
 
 const (

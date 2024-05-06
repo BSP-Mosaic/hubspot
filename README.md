@@ -1,6 +1,10 @@
 # go-hubspot
+
+> Private copy of https://github.com/belong-inc/go-hubspot
+
 [![godoc](https://godoc.org/github.com/belong-inc/go-hubspot?status.svg)](https://pkg.go.dev/github.com/belong-inc/go-hubspot)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 
 HubSpot Go Library that works with [HubSpot API v3](https://developers.hubspot.com/docs/api/overview).  
 HubSpot officially supports client library of Node.js, PHP, Ruby, and Python but not Go.
@@ -13,6 +17,18 @@ production.
 ```shell
 $ go get github.com/belong-inc/go-hubspot
 ```
+
+# Publish module
+
+Use the `publish.sh` script to publish this Go project to the Artifactory go-local repository
+
+```sh
+./publish.sh v1.0.0
+```
+
+Please check the current version on Artifactory before publishing.
+
+Ensure that ARTIFACTORY_ACCESS_TOKEN, ARTIFACTORY_URL, and ARTIFACTORY_USERNAME are present in the environment variables before using the script.
 
 # Usage
 

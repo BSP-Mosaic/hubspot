@@ -1,4 +1,4 @@
-module github.com/BSP-Mosaic/teltech-go-hubspot
+module bendingspoons.com/hubspot
 
 go 1.16
 
